@@ -142,17 +142,16 @@ const authCheck = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log("email ::::::: ", email);
-    console.log("password ::::::: ", password);
+    
     // Find user in database
     const user = await User.findOne({ email });
-    console.log("user ::::::: ", user);
 
     if (!user) {
       return res
         .status(401)
         .json({ success: false, message: "Invalid email or password" });
     }
+    
     // Check password
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
@@ -173,17 +172,15 @@ const loginUser = async (req, res) => {
         expiresIn: "7d",
       }
     );
-// Set HTTP-Only cookie with production settings
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,         // Ensures cookie is sent over HTTPS only
-  sameSite: "none",      // Use "none" if cross-site, otherwise "lax" is safer
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  path: "/",            // Explicitly set the path
-});
 
-
-    console.log("Cookie set:", res.getHeader("Set-Cookie"));
+    // ✅ Production-ready cookie settings
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,        // HTTPS only in production
+      sameSite: "none",    // For cross-origin requests (frontend/backend on different domains)
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: "/",
+    });
 
     res.status(200).json({
       success: true,
@@ -203,6 +200,7 @@ res.cookie("token", token, {
     });
   }
 };
+
 
 // Create Admin (Super Admin Only)
 const createAdmin = async (req, res) => {
