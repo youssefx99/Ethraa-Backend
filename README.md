@@ -282,11 +282,3 @@ CORS_ORIGIN=your_frontend_domain
 4. **Review & Edit**: Admin reviews and edits contract details
 5. **Distribution**: Send contract via email or WhatsApp
 6. **Management**: Track and manage all contracts in the system
-
-## 📞 Support
-
-For support and questions, please contact the development team.
-
----
-
-**Developed for Ithra Education Company** - Building productive individuals through innovative educational technology. 
