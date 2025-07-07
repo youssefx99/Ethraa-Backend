@@ -283,18 +283,6 @@ CORS_ORIGIN=your_frontend_domain
 5. **Distribution**: Send contract via email or WhatsApp
 6. **Management**: Track and manage all contracts in the system
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the ISC License.
-
 ## 📞 Support
 
 For support and questions, please contact the development team.
