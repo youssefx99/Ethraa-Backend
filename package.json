@@ -1,0 +1,42 @@
+{
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "docx-pdf": "^0.0.1",
+    "docx2pdf-converter": "^2.1.1",
+    "docxtemplater": "^3.59.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "libreoffice-convert": "^1.6.0",
+    "moment": "^2.30.1",
+    "moment-hijri": "^3.0.0",
+    "mongoose": "^8.9.5",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.16",
+    "nodemon": "^3.1.9",
+    "path": "^0.12.7",
+    "pdf-lib": "^1.17.1",
+    "pizzip": "^3.1.8",
+    "request": "^2.88.2",
+    "twilio": "^5.4.4",
+    "unoconv": "^0.1.2",
+    "util": "^0.12.5"
+  },
+  "name": "back",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "vercel-build": "npm install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
