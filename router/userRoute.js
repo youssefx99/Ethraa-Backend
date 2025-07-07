@@ -20,7 +20,6 @@ const {
   getAdmins
 } = require("../controller/userController");
 
-// ✅ Fixed path
 const {
   authenticateToken,
   authorizeRoles,
@@ -28,10 +27,17 @@ const {
 
 const router = express.Router();
 
-// ✅ Multer configuration
+// ✅ Fixed Multer configuration for serverless environments
 const storage = multer.memoryStorage();
 const mailupload = multer({ storage });
-const whatsAppupload = multer({ dest: "uploads/" });
+
+// ✅ Use memory storage for WhatsApp uploads too (fixes EROFS error)
+const whatsAppupload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 10 * 1024 * 1024 // 10MB limit
+  }
+});
 
 // ✅ Public routes (no authentication needed)
 router.post("/admin/loginforadmin", loginUser);
@@ -66,7 +72,6 @@ router.delete(
   deleteAdmin
 );
 
-
 router.put(
   "/admin/edit/:id",
   authenticateToken,
@@ -80,8 +85,6 @@ router.delete(
   authorizeRoles("super_admin"),
   deleteContract
 );
-
-
 
 router.post(
   "/user/create",
@@ -110,24 +113,29 @@ router.get(
   getContractById
 );
 
-// ✅ Email/WhatsApp routes (determine access level as needed)
-// router.post(
-//   "/send-email",
-//   authenticateToken,
-//   authorizeRoles("admin", "super_admin"),
-//   mailupload.single("contractFile"),
-//   sendEmail
-// );
+// ✅ Re-enabled Email/WhatsApp routes with memory storage
+router.post(
+  "/send-email",
+  authenticateToken,
+  authorizeRoles("admin", "super_admin"),
+  mailupload.single("contractFile"),
+  sendEmail
+);
 
-// router.post(
-//   "/send-whatsapp",
-//   authenticateToken,
-//   authorizeRoles("admin", "super_admin"),
-//   whatsAppupload.single("contractFile"),
-//   sendWhatsAppContract
-// );
+router.post(
+  "/send-whatsapp",
+  authenticateToken,
+  authorizeRoles("admin", "super_admin"),
+  whatsAppupload.single("contractFile"),
+  sendWhatsAppContract
+);
 
-// ✅ Consider if this should be protected
-router.get("/getAll", getAllContracts); // You might want to protect this too
+// ✅ Protected route for getting all contracts
+router.get(
+  "/getAll",
+  authenticateToken,
+  authorizeRoles("admin", "super_admin"),
+  getAllContracts
+);
 
 module.exports = router;
