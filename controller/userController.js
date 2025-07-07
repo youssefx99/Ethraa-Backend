@@ -173,15 +173,15 @@ const loginUser = async (req, res) => {
         expiresIn: "7d",
       }
     );
+// Set HTTP-Only cookie with production settings
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,         // Ensures cookie is sent over HTTPS only
+  sameSite: "lax",      // Use "none" if cross-site, otherwise "lax" is safer
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  path: "/",            // Explicitly set the path
+});
 
-    // Set HTTP-Only cookie with corrected settings
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false, // Set to false for localhost development
-      sameSite: "lax", // Changed from "none" to "lax" for localhost
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      path: "/", // Explicitly set the path
-    });
 
     console.log("Cookie set:", res.getHeader("Set-Cookie"));
 
