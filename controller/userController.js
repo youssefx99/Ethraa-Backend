@@ -177,7 +177,7 @@ const loginUser = async (req, res) => {
 res.cookie("token", token, {
   httpOnly: true,
   secure: true,         // Ensures cookie is sent over HTTPS only
-  sameSite: "lax",      // Use "none" if cross-site, otherwise "lax" is safer
+  sameSite: "none",      // Use "none" if cross-site, otherwise "lax" is safer
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   path: "/",            // Explicitly set the path
 });
